@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  diabot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: 20.11-alpine
+    image: diabot/app:latest
+    container_name: diabot
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env         # chứa NEXT_PUBLIC_*, SUPABASE_URL, SUPABASE_ANON_KEY,...
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+    restart: unless-stopped
